@@ -1,5 +1,5 @@
 {
-  "name": "jsend",
+  "name": "jsend-ts",
   "version": "0.1.0",
   "description": "Typed JSend helpers",
   "main": "dist/index.js",
