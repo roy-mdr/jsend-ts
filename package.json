@@ -1,0 +1,21 @@
+{
+  "name": "jsend",
+  "version": "0.1.0",
+  "description": "Typed JSend helpers",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jsend",
+    "typescript"
+  ],
+  "author": "roy-mdr",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "typescript": "^5.7.3"
+  }
+}
