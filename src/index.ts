@@ -17,19 +17,19 @@ declare namespace JSend {
 		toString(): string;
 	}
 
-	interface JSendError<T> {
+	interface JSendError<C extends number | string | undefined, T> {
 		status: "error";
 		message: string;
-		code?: number | string;
+		code?: C;
 		data?: T;
 	}
 
-	interface JSendErrorObject<T> extends JSendError<T> {
+	interface JSendErrorObject<C extends number | string | undefined = undefined, T = undefined> extends JSendError<C, T> {
 		toString(): string;
 	}
 
-	type JSend<T = string, U = string, V = string> = JSendSuccess<T> | JSendFail<U> | JSendError<V>;
-	type JSendObject<T = string, U = string, V = string> = JSendSuccessObject<T> | JSendFailObject<U> | JSendErrorObject<V>;
+	type JSend<T = string, U = string, C extends number | string | undefined = undefined, D = undefined> = JSendSuccess<T> | JSendFail<U> | JSendError<C, D>;
+	type JSendObject<T = string, U = string, C extends number | string | undefined = undefined, D = undefined> = JSendSuccessObject<T> | JSendFailObject<U> | JSendErrorObject<C, D>;
 }
 
 export const jsend = {
@@ -43,12 +43,10 @@ export const jsend = {
 		return { ...jsd, toString: () => JSON.stringify(jsd) }
 	},
 
-	error<T>(message: string, code?: number | string, data?: T): JSend.JSendErrorObject<T> {
-		const jsd: JSend.JSendError<T> = { status: "error", message };
+	error<C extends number | string | undefined = undefined, T = undefined>(message: string, code: C | undefined = undefined, data: T | undefined = undefined): JSend.JSendErrorObject<C, T> {
+		const jsd: JSend.JSendError<C, T> = { status: "error", message };
 
-		if (typeof code === 'string') { jsd.code = code; }
-		else if (code) { jsd.code = parseInt(`${code}`); }
-
+		if (typeof code === 'string' || typeof code === 'number') jsd.code = code;
 		if (data !== undefined) jsd.data = data;
 
 		return { ...jsd, toString: () => JSON.stringify(jsd) }
