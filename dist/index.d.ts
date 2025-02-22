@@ -1,4 +1,4 @@
-declare namespace JSend {
+export declare namespace JSend {
     interface JSendSuccess<T> {
         status: "success";
         data: T;
@@ -30,5 +30,4 @@ export declare const jsend: {
     fail<T>(data: T): JSend.JSendFailObject<T>;
     error<C extends number | string | undefined = undefined, T = undefined>(message: string, code?: C | undefined, data?: T | undefined): JSend.JSendErrorObject<C, T>;
 };
-export {};
 //# sourceMappingURL=index.d.ts.map
