@@ -10,14 +10,10 @@ exports.jsend = {
         const jsd = { status: "fail", data };
         return Object.assign(Object.assign({}, jsd), { toString: () => JSON.stringify(jsd) });
     },
-    error(message, code, data) {
+    error(message, code = undefined, data = undefined) {
         const jsd = { status: "error", message };
-        if (typeof code === 'string') {
+        if (typeof code === 'string' || typeof code === 'number')
             jsd.code = code;
-        }
-        else if (code) {
-            jsd.code = parseInt(`${code}`);
-        }
         if (data !== undefined)
             jsd.data = data;
         return Object.assign(Object.assign({}, jsd), { toString: () => JSON.stringify(jsd) });

@@ -13,22 +13,22 @@ declare namespace JSend {
     interface JSendFailObject<T> extends JSendFail<T> {
         toString(): string;
     }
-    interface JSendError<T> {
+    interface JSendError<C extends number | string | undefined, T> {
         status: "error";
         message: string;
-        code?: number | string;
+        code?: C;
         data?: T;
     }
-    interface JSendErrorObject<T> extends JSendError<T> {
+    interface JSendErrorObject<C extends number | string | undefined = undefined, T = undefined> extends JSendError<C, T> {
         toString(): string;
     }
-    type JSend<T = string, U = string, V = string> = JSendSuccess<T> | JSendFail<U> | JSendError<V>;
-    type JSendObject<T = string, U = string, V = string> = JSendSuccessObject<T> | JSendFailObject<U> | JSendErrorObject<V>;
+    type JSend<T = string, U = string, C extends number | string | undefined = undefined, D = undefined> = JSendSuccess<T> | JSendFail<U> | JSendError<C, D>;
+    type JSendObject<T = string, U = string, C extends number | string | undefined = undefined, D = undefined> = JSendSuccessObject<T> | JSendFailObject<U> | JSendErrorObject<C, D>;
 }
 export declare const jsend: {
     success<T>(data: T): JSend.JSendSuccessObject<T>;
     fail<T>(data: T): JSend.JSendFailObject<T>;
-    error<T>(message: string, code?: number | string, data?: T): JSend.JSendErrorObject<T>;
+    error<C extends number | string | undefined = undefined, T = undefined>(message: string, code?: C | undefined, data?: T | undefined): JSend.JSendErrorObject<C, T>;
 };
 export {};
 //# sourceMappingURL=index.d.ts.map
